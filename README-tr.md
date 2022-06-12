@@ -5,16 +5,16 @@
 # Komut Satırı Sanatı
 
 - [Açıklama](#meta)
-- [Basics](#basics)
-- [Everyday use](#everyday-use)
-- [Processing files and data](#processing-files-and-data)
-- [System debugging](#system-debugging)
-- [One-liners](#one-liners)
-- [Obscure but useful](#obscure-but-useful)
-- [macOS only](#macos-only)
-- [Windows only](#windows-only)
-- [More resources](#more-resources)
-- [Disclaimer](#disclaimer)
+- [Temeller](#temeller)
+- [Günlük kullanım](#günlük-kullanım)
+- [Dosya ve veri işleme](#dosya-ve-veri-işleme)
+- [Sistem hata ayıklama](#sistem-hata-ayıklama)
+- [Tek satırlık komutlar](#tek-satırlık-komutlar)
+- [Karmaşık ama kullanışlı](#karmaşık-ama-kullanışlı)
+- [Sadece macOS](#sadece-macos)
+- [Sadece Windows](#sadece-windows)
+- [Daha fazla kaynak](#daha-fazla-kaynak)
+- [Sorumluluk reddi](#sorumluluk-reddi)
 
 
 ![curl -s 'https://raw.githubusercontent.com/jlevy/the-art-of-command-line/master/README.md' | egrep -o '`\w+`' | tr -d '`' | cowsay -W50](cowsay.png)
@@ -33,37 +33,37 @@ Eğer komut satırı ile ilgili bir sorunuz varsa [**bir soru gönderin**](https
 
 ## Açıklama
 
-Scope:
+Kapsam:
 
-- This guide is for both beginners and experienced users. The goals are *breadth* (everything important), *specificity* (give concrete examples of the most common case), and *brevity* (avoid things that aren't essential or digressions you can easily look up elsewhere). Every tip is essential in some situation or significantly saves time over alternatives.
-- This is written for Linux, with the exception of the "[macOS only](#macos-only)" and "[Windows only](#windows-only)" sections. Many of the other items apply or can be installed on other Unices or macOS (or even Cygwin).
-- The focus is on interactive Bash, though many tips apply to other shells and to general Bash scripting.
-- It includes both "standard" Unix commands as well as ones that require special package installs -- so long as they are important enough to merit inclusion.
+- Bu rehber hem yeni başlayanlar, hem de tecrübeli kullanıcılar için uygundur. Amaçlar *genişlik* (önemli olan her şey), *spesifiklik* (en yaygın vakaların somut örneklerini vermek) ve *özlülük* (gerekli olmayan veya konudan sapan ve dış kaynaklardan kolaylıkla bulunabilecek şeylerden kaçınmak)'tür. Her tavsiye bazı durumlarda önemlidir veya alternatiflerine göre önemli ölçüde zaman kazandırır.
+- Bu rehber, "[Sadece macOS](#sadece-macos)" ve "[Sadece Windows](#sadece-windows)" bölümleri hariç Linux içindir. Diğer öğelerin çoğu diğer unicelar'a veya macOS'a (ve hatta Cygwin'e) yüklenebilir.
+- Çoğu ipucu diğer shell'lere ve genel olarak Bash scriptlere uyumlu olsa da, odak interaktif Bash üzerinedir.
+- Bu rehber hem "standart" Unix komutlarını, hem de paket yükleme gerektiren komutları (dahil edilmeyi hak edecek kadar önemli oldukları sürece) içerir.
 
-Notes:
+Notlar:
 
-- To keep this to one page, content is implicitly included by reference. You're smart enough to look up more detail elsewhere once you know the idea or command to Google. Use `apt`, `yum`, `dnf`, `pacman`, `pip` or `brew` (as appropriate) to install new programs.
-- Use [Explainshell](http://explainshell.com/) to get a helpful breakdown of what commands, options, pipes etc. do.
+- Bu rehberi tek sayfaya sığdırmak için içerik referanslar ile dahil edilmiştir. Fikri ve Google'da nasıl aratacağınızı anladıktan sonra daha fazla detay araştırabilirsiniz. Yeni programlar indirmek için `apt`, `yum`, `dnf`, `pacman`, `pip` veya `brew` (uygun görüleni) kullanın.
+- Komutların, seçeneklerin, pipe'ların ne yaptığının faydalı bir dökümünü almak için [Explainshell](http://explainshell.com/) kullanın.
 
 
-## Basics
+## Temeller
 
-- Learn basic Bash. Actually, type `man bash` and at least skim the whole thing; it's pretty easy to follow and not that long. Alternate shells can be nice, but Bash is powerful and always available (learning *only* zsh, fish, etc., while tempting on your own laptop, restricts you in many situations, such as using existing servers).
+- Temel Bash öğrenin. `man bash` yazın ve dökümanın tamanına en azından bir göz atın. Takip etmesi oldukça kolay ve o kadar da uzun değil. Alternatif shell'ler de iyi olabilir, ancak Bash güçlüdür ve her zaman kullanılabilir(Kendi bilgisayarınızda *yalnızca* zsh, fish, etc. öğrenmek sizi mevcut sunucuları kullanmak gibi çok sayıda durumda sınırlayacaktır).
 
-- Learn at least one text-based editor well. The `nano` editor is one of the simplest for basic editing (opening, editing, saving, searching). However, for the power user in a text terminal, there is no substitute for Vim (`vi`), the hard-to-learn but venerable, fast, and full-featured editor. Many people also use the classic Emacs, particularly for larger editing tasks. (Of course, any modern software developer working on an extensive project is unlikely to use only a pure text-based editor and should also be familiar with modern graphical IDEs and tools.)
+- En azından bir metin-tabanlı editör kullanmayı iyi öğrenin. `nano` basit düzeyde editleme (açma, düzenleme, kaydetme, arama) için en basit seçeneklerden biridir. Ancak, usta bir terminal kullanıcısı için  öğrenmesi zor ama değerli, hızlı ve tüm özelliklere sahip Vim (`vi`) editörü yeri doldurulamazdır. Çok sayıda insan özellikle daha büyük düzenleme için Emacs de kullanmaktadır. (Tabi ki , kapsamlı bir projede çalışan modern bir yazılım geliştiricinin saf metin tabanlı bir editör kullanması pek mümkün değildir ve modern IDE'lere ve araçlara da aşina olunmalıdır.)
 
-- Finding documentation:
-  - Know how to read official documentation with `man` (for the inquisitive, `man man` lists the section numbers, e.g. 1 is "regular" commands, 5 is files/conventions, and 8 are for administration). Find man pages with `apropos`.
-  - Know that some commands are not executables, but Bash builtins, and that you can get help on them with `help` and `help -d`. You can find out whether a command is an executable, shell builtin or an alias by using `type command`.
-  - `curl cheat.sh/command` will give a brief "cheat sheet" with common examples of how to use a shell command.
+- Döküman bulma:
+  - `man` komutu kullanarak resmi dökümantasyon okumayı öğrenin (Meraklısına, `man man` komutu bölüm numaralarını listeler, örneğin 1, "normal" komutlar; 5, dosyalar/gelenekler ve 8, yönetim için kullanılır). Man sayfalarını `apropos` ile bulabilirsiniz.
+  - Bazı komutlar çalıştırılabilir dosyalar değildir, Bash içerisinde tanımlıdır. Bu komutlar ile ilgili `help` ve `help -d` komutları kullanılarak yardım alınabilir. `type command` komutu kullanılarak bir komutun çalıştırılabilir mi, shell içerisinde tanımlı mı yoksa bir alias mı olduğu öğrenilebilir.
+    - `curl cheat.sh/command` komutu bir komutun nasıl kullanılacağını yaygın örneklerle gösteren kısa bir döküman verir.
 
-- Learn about redirection of output and input using `>` and `<` and pipes using `|`. Know `>` overwrites the output file and `>>` appends. Learn about stdout and stderr.
+-  `>` ve `<` kullanarak input ve output yönlendirmeyi ve `|` ile pipe kullanmayı öğrenin. `>` output dosyasının üzerine yazar ve `>>` sonuna ekler. stdout ve stderr'i öğrenin.
 
-- Learn about file glob expansion with `*` (and perhaps `?` and `[`...`]`) and quoting and the difference between double `"` and single `'` quotes. (See more on variable expansion below.)
+-  `*` (ve  bekli de  `?` ve `[`...`]`) ve tırmak ile glob kullanmayı ve çift `"` ve tek `'` tırnak arasındaki farkı öğrenin.
 
-- Be familiar with Bash job management: `&`, **ctrl-z**, **ctrl-c**, `jobs`, `fg`, `bg`, `kill`, etc.
+- Bash iş yönetimine aşina olun: `&`, **ctrl-z**, **ctrl-c**, `jobs`, `fg`, `bg`, `kill`, vb.
 
-- Know `ssh`, and the basics of passwordless authentication, via `ssh-agent`, `ssh-add`, etc.
+- `ssh` ve  `ssh-agent`, `ssh-add`, vb. aracılığıyla basit şifresiz kimlik doğrulama işlemlerini öğrenin.
 
 - Basic file management: `ls` and `ls -l` (in particular, learn what every column in `ls -l` means), `less`, `head`, `tail` and `tail -f` (or even better, `less +F`), `ln` and `ln -s` (learn the differences and advantages of hard versus soft links), `chown`, `chmod`, `du` (for a quick summary of disk usage: `du -hs *`). For filesystem management, `df`, `mount`, `fdisk`, `mkfs`, `lsblk`. Learn what an inode is (`ls -i` or `df -i`).
 
@@ -76,7 +76,7 @@ Notes:
 - Learn to use `apt-get`, `yum`, `dnf` or `pacman` (depending on distro) to find and install packages. And make sure you have `pip` to install Python-based command-line tools (a few below are easiest to install via `pip`).
 
 
-## Everyday use
+## Günlük kullanım
 
 - In Bash, use **Tab** to complete arguments or list all available commands and **ctrl-r** to search through command history (after pressing, type to search, press **ctrl-r** repeatedly to cycle through more matches, press **Enter** to execute the found command, or hit the right arrow to put the result in the current line to allow editing).
 
@@ -212,7 +212,7 @@ EOF
 ```
 
 
-## Processing files and data
+## Dosya ve veri işleme
 
 - To locate a file by name in the current directory, `find . -iname '*something*'` (or similar). To find a file anywhere by name, use `locate something` (but bear in mind `updatedb` may not have indexed recently created files).
 
@@ -309,7 +309,7 @@ mkdir empty && rsync -r --delete empty/ some-dir && rmdir some-dir
 
 - To create empty files quickly, use `truncate` (creates [sparse file](https://en.wikipedia.org/wiki/Sparse_file)), `fallocate` (ext4, xfs, btrfs and ocfs2 filesystems), `xfs_mkfile` (almost any filesystems, comes in xfsprogs package), `mkfile` (for Unix-like systems like Solaris, Mac OS).
 
-## System debugging
+## Sistem hata ayıklama
 
 - For web debugging, `curl` and `curl -I` are handy, or their `wget` equivalents, or the more modern [`httpie`](https://github.com/jkbrzt/httpie).
 
@@ -353,7 +353,7 @@ mkdir empty && rsync -r --delete empty/ some-dir && rmdir some-dir
 `lsof | grep deleted | grep "filename-of-my-big-file"`
 
 
-## One-liners
+## Tek satırlık komutlar
 
 A few examples of piecing together commands:
 
@@ -402,7 +402,7 @@ A few examples of piecing together commands:
 ```
 
 
-## Obscure but useful
+## Karmaşık ama kullanışlı
 
 - `expr`: perform arithmetic or boolean operations or evaluate regular expressions
 
@@ -549,7 +549,7 @@ A few examples of piecing together commands:
 - `fortune`, `ddate`, and `sl`: um, well, it depends on whether you consider steam locomotives and Zippy quotations "useful"
 
 
-## macOS only
+## Sadece macOS
 
 These are items relevant *only* on macOS.
 
@@ -567,7 +567,7 @@ These are items relevant *only* on macOS.
 
 - To get macOS release information, use `sw_vers`.
 
-## Windows only
+## Sadece Windows
 
 These items are relevant *only* on Windows.
 
@@ -603,7 +603,7 @@ These items are relevant *only* on Windows.
 
 - Note that a `C:\` Windows drive path becomes `/cygdrive/c` under Cygwin, and that Cygwin's `/` appears under `C:\cygwin` on Windows. Convert between Cygwin and Windows-style file paths with `cygpath`. This is most useful in scripts that invoke Windows programs.
 
-## More resources
+## Daha fazla kaynak
 
 - [awesome-shell](https://github.com/alebcay/awesome-shell): A curated list of shell tools and resources.
 - [awesome-osx-command-line](https://github.com/herrbischoff/awesome-osx-command-line): A more in-depth guide for the macOS command line.
@@ -612,12 +612,12 @@ These items are relevant *only* on Windows.
 - [Filenames and Pathnames in Shell](http://www.dwheeler.com/essays/filenames-in-shell.html): The sadly complex minutiae on how to handle filenames correctly in shell scripts.
 - [Data Science at the Command Line](http://datascienceatthecommandline.com/#tools): More commands and tools helpful for doing data science, from the book of the same name
 
-## Disclaimer
+## Sorumluluk reddi
 
 With the exception of very small tasks, code is written so others can read it. With power comes responsibility. The fact you *can* do something in Bash doesn't necessarily mean you should! ;)
 
 
-## License
+## Lisans
 
 [![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/)
 
