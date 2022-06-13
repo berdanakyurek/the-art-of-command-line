@@ -65,15 +65,15 @@ Notlar:
 
 - `ssh` ve  `ssh-agent`, `ssh-add`, vb. aracılığıyla basit şifresiz kimlik doğrulama işlemlerini öğrenin.
 
-- Basic file management: `ls` and `ls -l` (in particular, learn what every column in `ls -l` means), `less`, `head`, `tail` and `tail -f` (or even better, `less +F`), `ln` and `ln -s` (learn the differences and advantages of hard versus soft links), `chown`, `chmod`, `du` (for a quick summary of disk usage: `du -hs *`). For filesystem management, `df`, `mount`, `fdisk`, `mkfs`, `lsblk`. Learn what an inode is (`ls -i` or `df -i`).
+- Temel dosya yönetimi: `ls` ve `ls -l` (özelikle `ls -l`'deki her bir sütunun ne anlama geldiğini öğrenin), `less`, `head`, `tail` ve `tail -f` (vaya daha iyisi, `less +F`), `ln` ve `ln -s` (hard ve soft linkler arasındaki farkları ve avantajları öğrenin), `chown`, `chmod`, `du` (disk kullanımının hızlı bir özeti için: `du -hs *`). Dosya sistemi yönetimi için, `df`, `mount`, `fdisk`, `mkfs`, `lsblk`. inode'un ne demek olduğu öğrenin (`ls -i` veya `df -i`).
 
-- Basic network management: `ip` or `ifconfig`, `dig`, `traceroute`, `route`.
+- Temel ağ yönetimi: `ip` veya `ifconfig`, `dig`, `traceroute`, `route`.
 
-- Learn and use a version control management system, such as `git`.
+- Bir versiyon kontrol sistemi kullanmayı öğrenin (örneğin `git`).
 
-- Know regular expressions well, and the various flags to `grep`/`egrep`. The `-i`, `-o`, `-v`, `-A`, `-B`, and `-C` options are worth knowing.
+- Regular expression'ları ve `grep`/`egrep`'in çeşitli flag'larını iyice öğrenin. `-i`, `-o`, `-v`, `-A`, `-B` ve `-C` seçenekleri bilmeye değer.
 
-- Learn to use `apt-get`, `yum`, `dnf` or `pacman` (depending on distro) to find and install packages. And make sure you have `pip` to install Python-based command-line tools (a few below are easiest to install via `pip`).
+- Paketleri bulmak ve yüklemek için `apt-get`, `yum`, `dnf` veya `pacman` (dağıtıma bağlı olarak) kullanmayı öğrenin. Python tabanlı komut satırı araçlarını yüklemek için `pip` kullanın (aşağıdakilerden bazıları en hızlı `pip` ile yüklenir).
 
 
 ## Günlük kullanım
