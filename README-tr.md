@@ -215,100 +215,100 @@ kullanın.
 
 ## Dosya ve veri işleme
 
-- To locate a file by name in the current directory, `find . -iname '*something*'` (or similar). To find a file anywhere by name, use `locate something` (but bear in mind `updatedb` may not have indexed recently created files).
+- Mevcut dizin içerisinde bir dosyayı ismiyle bulmak için, `find . -iname '*something*'` (veya benzeri). Bir dosyayı herhangi bir yerde bulmak için, `locate something` kullanın (`updatedb`'nin yeni yaratılan dosyaları indekslememiş olabileceğini de göz önünde bulundurun).
 
-- For general searching through source or data files, there are several options more advanced or faster than `grep -r`, including (in rough order from older to newer) [`ack`](https://github.com/beyondgrep/ack2), [`ag`](https://github.com/ggreer/the_silver_searcher) ("the silver searcher"), and [`rg`](https://github.com/BurntSushi/ripgrep) (ripgrep).
+- Kaynak veya veri dosyaları içinde genel arama için `grep -r`'den daha gelişmiş ve hızlı seçenekler vardır. Örneğin (kabaca eskiden yeniye doğru) [`ack`](https://github.com/beyondgrep/ack2), [`ag`](https://github.com/ggreer/the_silver_searcher) ("the silver searcher") ve [`rg`](https://github.com/BurntSushi/ripgrep) (ripgrep).
 
-- To convert HTML to text: `lynx -dump -stdin`
+- HTML'i metne çevirmek için: `lynx -dump -stdin`
 
-- For Markdown, HTML, and all kinds of document conversion, try [`pandoc`](http://pandoc.org/). For example, to convert a Markdown document to Word format: `pandoc README.md --from markdown --to docx -o temp.docx`
+- Markdown, HTML ve her çeşit döküman çevirme için [`pandoc`](http://pandoc.org/)'u deneyin. Örneğin, bir markdown dökümanını Word formatına dönüştürmek için: `pandoc README.md --from markdown --to docx -o temp.docx` kullanın.
 
-- If you must handle XML, `xmlstarlet` is old but good.
+- XML için, `xmlstarlet` eski ama iyidir.
 
-- For JSON, use [`jq`](http://stedolan.github.io/jq/). For interactive use, also see [`jid`](https://github.com/simeji/jid) and [`jiq`](https://github.com/fiatjaf/jiq).
+- JSON için [`jq`](http://stedolan.github.io/jq/) kullanın. Etkileşimli kullanım için: [`jid`](https://github.com/simeji/jid) ve [`jiq`](https://github.com/fiatjaf/jiq).
 
-- For YAML, use [`shyaml`](https://github.com/0k/shyaml).
+- YAML için [`shyaml`](https://github.com/0k/shyaml) kullanın.
 
-- For Excel or CSV files, [csvkit](https://github.com/onyxfish/csvkit) provides `in2csv`, `csvcut`, `csvjoin`, `csvgrep`, etc.
+- Excel veya CSV belgeleri için, [csvkit](https://github.com/onyxfish/csvkit), provide `in2csv`, `csvcut`, `csvjoin`, `csvgrep`, vb. sağlar.
 
-- For Amazon S3, [`s3cmd`](https://github.com/s3tools/s3cmd) is convenient and [`s4cmd`](https://github.com/bloomreach/s4cmd) is faster. Amazon's [`aws`](https://github.com/aws/aws-cli) and the improved [`saws`](https://github.com/donnemartin/saws) are essential for other AWS-related tasks.
+- Amazon S3 için [`s3cmd`](https://github.com/s3tools/s3cmd) uygundur ve [`s4cmd`](https://github.com/bloomreach/s4cmd) daha hızlıdır. Amazon'un [`aws`](https://github.com/aws/aws-cli) ve daha gelişmiş [`saws`](https://github.com/donnemartin/saws) komutları AWS ile ilgili işler için önemlidir.
 
-- Know about `sort` and `uniq`, including uniq's `-u` and `-d` options -- see one-liners below. See also `comm`.
+- `sort` ve `uniq`'i , uniq'in `-u` ve `-d` seçeneklerini  öğrenin -- aşağıda tek satırlık komutlar bölümüne bakın. Ayrıca `comm` komutunu öğrenin.
 
-- Know about `cut`, `paste`, and `join` to manipulate text files. Many people use `cut` but forget about `join`.
+- Metin dosyalarını işlemek için `cut`, `paste` ve `join` komutlarını öğrenin. Çoğu kişi `cut` kullanır ama `join`'i unutur.
 
-- Know about `wc` to count newlines (`-l`), characters (`-m`), words (`-w`) and bytes (`-c`).
+- Satırları (`-l`), karakterleri (`-m`), kelimeleri (`-w`) ve byte'ları (`-c`) saymak için `wc` kullanmayı öğrenin.
 
-- Know about `tee` to copy from stdin to a file and also to stdout, as in `ls -al | tee file.txt`.
+- Know about stdin'den bir dosyaya ve stdouta kopyalamak için `tee` kullanmayı öğrenin, `ls -al | tee file.txt`'de olduğu gibi.
 
-- For more complex calculations, including grouping, reversing fields, and statistical calculations, consider [`datamash`](https://www.gnu.org/software/datamash/).
+- Daha karmaşık hesaplamalar için (gruplama, alanları tersine çevirme ve istatistiksel hesaplamalar gibi) [`datamash`](https://www.gnu.org/software/datamash/) kullanın.
 
-- Know that locale affects a lot of command line tools in subtle ways, including sorting order (collation) and performance. Most Linux installations will set `LANG` or other locale variables to a local setting like US English. But be aware sorting will change if you change locale. And know i18n routines can make sort or other commands run *many times* slower. In some situations (such as the set operations or uniqueness operations below) you can safely ignore slow i18n routines entirely and use traditional byte-based sort order, using `export LC_ALL=C`.
+- Yerel ayarların sıralama ve performans gibi bir çok komut satırı aracını etkilediğini bilin. Çoğu Linux kurulumu `LANG` veya diğer yerel ayar değişkenini US English olarak ayarlar. Ancak eğer yerel ayarları değiştirirseniz sıralamanın da değişeceğinin farkında olun. Ayrıca i18n rutinleri sort ve diğer komutların çalışmasını *birkaç kat* yavaşlatabilir. Bazı durumlarda (küme işlemleri ve özgünlük işlemleri gibi) yavaş i18n rutinlerini güvenle yoksayabilirsiniz ve `export LC_ALL=C` kullanarak geleneksel byte-tabanlı sıralama düzeni kullanabilirsiniz.
 
-- You can set a specific command's environment by prefixing its invocation with the environment variable settings, as in `TZ=Pacific/Fiji date`.
+- Bir komutun ortamını belirlemek için komutun önüne ortam değişkeni ayarlarını ekleyin. Örneğin `TZ=Pacific/Fiji date`.
 
-- Know basic `awk` and `sed` for simple data munging. See [One-liners](#one-liners) for examples.
+- Basit veri işleme için `awk` ve `sed` kullanın. Örnekler için [Tek-Satırlık-Komutlar](#tek-satırlık-komutlar) bölümüne bakın.
 
-- To replace all occurrences of a string in place, in one or more files:
+- Bir veya birden fazla dosyada bir stringi başka bir string ile değiştirmek için:
 ```sh
       perl -pi.bak -e 's/old-string/new-string/g' my-files-*.txt
 ```
 
-- To rename multiple files and/or search and replace within files, try [`repren`](https://github.com/jlevy/repren). (In some cases the `rename` command also allows multiple renames, but be careful as its functionality is not the same on all Linux distributions.)
+- Birden fazla dosyayı yeniden adlandırmak ve/veya dosya içerisinde arama ve değiştirme yapmak için [`repren`](https://github.com/jlevy/repren)'i deneyin. (Bazı durumlarda `rename` komutu birden fazla yeniden adlandırma işlemine izin verir ancak çalışması tüm Linux dağıtımlarında aynı olmayacağından dikkatli olun.)
 ```sh
-      # Full rename of filenames, directories, and contents foo -> bar:
+      # Dosya adlarının, dizinlerin ve içeriklerin tam yeniden adlandırılması foo -> bar:
       repren --full --preserve-case --from foo --to bar .
-      # Recover backup files whatever.bak -> whatever:
+      # Yedek dosyalarıni geri yükleme whatever.bak -> whatever:
       repren --renames --from '(.*)\.bak' --to '\1' *.bak
-      # Same as above, using rename, if available:
+      # Yukarıdakinin aynısı, rename kullanarak:
       rename 's/\.bak$//' *.bak
 ```
 
-- As the man page says, `rsync` really is a fast and extraordinarily versatile file copying tool. It's known for synchronizing between machines but is equally useful locally. When security restrictions allow, using `rsync` instead of `scp` allows recovery of a transfer without restarting from scratch. It also is among the [fastest ways](https://web.archive.org/web/20130929001850/http://linuxnote.net/jianingy/en/linux/a-fast-way-to-remove-huge-number-of-files.html) to delete large numbers of files:
+- man sayfasında söylendiği gibi, `rsync` gerçekten hızlı ve çok yönlü bir dosya kopyalama aracıdır. Makineler arası senkronizasyon için kullanılmasıyla bilinir ancak yerel olarak da aynı derecede kullanışlıdır. Güvenlik kısıtlamaları el verdiğinde, using `scp` yerine `rsync` kullanmak aktarımın sıfırdan başlamak yerine kaldığı yerden devam etmesine izin verir. Ayrıca çok sayıda dosyayı silmenin [en hızlı yollarından](https://web.archive.org/web/20130929001850/http://linuxnote.net/jianingy/en/linux/a-fast-way-to-remove-huge-number-of-files.html) biridir:
 ```sh
 mkdir empty && rsync -r --delete empty/ some-dir && rmdir some-dir
 ```
 
-- For monitoring progress when processing files, use [`pv`](http://www.ivarch.com/programs/pv.shtml), [`pycp`](https://github.com/dmerejkowsky/pycp), [`pmonitor`](https://github.com/dspinellis/pmonitor), [`progress`](https://github.com/Xfennec/progress), `rsync --progress`, or, for block-level copying, `dd status=progress`.
+- Dosyaları işlerken ilerlemeyi takip etmek için  [`pv`](http://www.ivarch.com/programs/pv.shtml), [`pycp`](https://github.com/dmerejkowsky/pycp), [`pmonitor`](https://github.com/dspinellis/pmonitor), [`progress`](https://github.com/Xfennec/progress), `rsync --progress`, veya, blok seviyesinde kopyalama için, `dd status=progress` kullanın.
 
-- Use `shuf` to shuffle or select random lines from a file.
+- Bir dosyayi karıştırmak veya rastgele satırlar seçmek için `shuf` kullanın.
 
-- Know `sort`'s options. For numbers, use `-n`, or `-h` for handling human-readable numbers (e.g. from `du -h`). Know how keys work (`-t` and `-k`). In particular, watch out that you need to write `-k1,1` to sort by only the first field; `-k1` means sort according to the whole line. Stable sort (`sort -s`) can be useful. For example, to sort first by field 2, then secondarily by field 1, you can use `sort -k1,1 | sort -s -k2,2`.
+- `sort` komutunun seçeneklerini bilin. Sayılar için `-n`, veya insan tarafından okunabilir sayılar için `-h` (örneğin `du -h` komutundan gelen) kullanın. Anahtarların nasıl çalıştığını bilin (`-t` ve `-k`). Özellikle yalnızca ilk alana göre sıralamak için `-k1,1` yazmanız gerektiğine dikkat edin; `-k1` tüm satıra göre sıralamak anlamına gelir. Stabil sıralama (`sort -s`) kullanışlı olabilir. Örneğin, öncelikle alan 2, sonra ikincil olarak alan 1'e göre sıralamak için `sort -k1,1 | sort -s -k2,2` kullanabilirsiniz.
 
-- If you ever need to write a tab literal in a command line in Bash (e.g. for the -t argument to sort), press **ctrl-v** **[Tab]** or write `$'\t'` (the latter is better as you can copy/paste it).
+- Eğer komut satırına Tab yazmak isterseniz (örneğin sort'un -t argümanı için),  **ctrl-v** **[Tab]**'ye basın veya `$'\t'` yazın (kopyalayıp yapıştırabileceğiniz için ikinci seçenek daha iyidir).
 
-- The standard tools for patching source code are `diff` and `patch`. See also `diffstat` for summary statistics of a diff and `sdiff` for a side-by-side diff. Note `diff -r` works for entire directories. Use `diff -r tree1 tree2 | diffstat` for a summary of changes. Use `vimdiff` to compare and edit files.
+- Kaynak kodu yamalamak için standart araçlar `diff` ve `patch`'tir. Ayrıca diff ve `sdiff`'in özet istatistikleri ve yan yana diff için `diffstat` kullanın.  `diff -r` bütün dizinler için çalışır. Değişikliklerin özeti için `diff -r tree1 tree2 | diffstat` kullanın. Dosyaları karşılaştırmak ve düzenlemek için `vimdiff` kullanın.
 
-- For binary files, use `hd`, `hexdump` or `xxd` for simple hex dumps and `bvi`, `hexedit` or `biew` for binary editing.
+- Binary dosyalar için, basit onaltılık gösterimler için `hd`, `hexdump` veya `xxd` ve temel binary düzenleme için `bvi`, `hexedit` veya `biew` kullanın.
 
-- Also for binary files, `strings` (plus `grep`, etc.) lets you find bits of text.
+- Ayrıca binary dosyalar için, `strings` (ve `grep`, vb.) metindeki bitleri bulmanıza izin verir.
 
-- For binary diffs (delta compression), use `xdelta3`.
+- Binary diff için (delta sıkıştırması) `xdelta3` kullanın.
 
-- To convert text encodings, try `iconv`. Or `uconv` for more advanced use; it supports some advanced Unicode things. For example:
+- Metin kodlamalarını dönüştürmek için, `iconv`'u deneyin. Daha ileri düzey kullanım için`uconv` kullanın; bazı ileri düzey Unicode işlevlerini destekler. Örneğin:
 ```sh
-      # Displays hex codes or actual names of characters (useful for debugging):
+      # Onaltılık kodları veya karkaterlerin gerçek adlarını gösterir (hata ayıklama için kullanışlıdır):
       uconv -f utf-8 -t utf-8 -x '::Any-Hex;' < input.txt
       uconv -f utf-8 -t utf-8 -x '::Any-Name;' < input.txt
-      # Lowercase and removes all accents (by expanding and dropping them):
+      # Tüm karakterleri küçük harf yapar ve aksan işaretlerini kaldırır (genişletip düşürerek):
       uconv -f utf-8 -t utf-8 -x '::Any-Lower; ::Any-NFD; [:Nonspacing Mark:] >; ::Any-NFC;' < input.txt > output.txt
 ```
 
-- To split files into pieces, see `split` (to split by size) and `csplit` (to split by a pattern).
+- Dosyaları parçalara ayırmak için `split` (boyuta göre ayırma) ve `csplit` (bir kalıba göre ayırma) kullanın.
 
-- Date and time: To get the current date and time in the helpful [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, use `date -u +"%Y-%m-%dT%H:%M:%SZ"` (other options [are](https://stackoverflow.com/questions/7216358/date-command-on-os-x-doesnt-have-iso-8601-i-option) [problematic](https://unix.stackexchange.com/questions/164826/date-command-iso-8601-option)). To manipulate date and time expressions, use `dateadd`, `datediff`, `strptime` etc. from [`dateutils`](http://www.fresse.org/dateutils/).
+- Tarih ve saat: Anlık tarih ve saati kullanışlı  [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) formatında almak için `date -u +"%Y-%m-%dT%H:%M:%SZ"` kullanın (Diğer [seçenekler](https://stackoverflow.com/questions/7216358/date-command-on-os-x-doesnt-have-iso-8601-i-option) [problematic](https://unix.stackexchange.com/questions/164826/date-command-iso-8601-option)). Tarih ve saat ifadelerini düzenlemek için from [`dateutils`](http://www.fresse.org/dateutils/)'ten `dateadd`, `datediff`, `strptime` vb. kullanın.
 
-- Use `zless`, `zmore`, `zcat`, and `zgrep` to operate on compressed files.
+- Sıkıştırılmış dosyalar üzerinde işlem yapmak için `zless`, `zmore`, `zcat`, ve `zgrep` kullanın.
 
-- File attributes are settable via `chattr` and offer a lower-level alternative to file permissions. For example, to protect against accidental file deletion the immutable flag:  `sudo chattr +i /critical/directory/or/file`
+- Dosya özellikleri `chattr` ile belirlenebilir ve dosya izinlerine daha alt seviye bir alternatif sunar. Örneğin, yanlışlıkla dosya silmeye karşı koruma için: `sudo chattr +i /critical/directory/or/file`
 
-- Use `getfacl` and `setfacl` to save and restore file permissions. For example:
+- Dosya izinlerini kaydetmek ve geri getirmek için `getfacl` ve `setfacl` kullanın. Örneğin:
 ```sh
    getfacl -R /some/path > permissions.txt
    setfacl --restore=permissions.txt
 ```
 
-- To create empty files quickly, use `truncate` (creates [sparse file](https://en.wikipedia.org/wiki/Sparse_file)), `fallocate` (ext4, xfs, btrfs and ocfs2 filesystems), `xfs_mkfile` (almost any filesystems, comes in xfsprogs package), `mkfile` (for Unix-like systems like Solaris, Mac OS).
+- Kolayca boş dosya yaratmak için `truncate` ([seyrek dosya](https://en.wikipedia.org/wiki/Sparse_file) yaratır), `fallocate` (ext4, xfs, btrfs ve ocfs2 dosya sistemleri), `xfs_mkfile` (neredeyse tüm dosya sistemleri, xfsprogs paketi ile gelir), `mkfile` (Solaris, Mac OS gibi Unix tarzı sistemler için) kullanın.
 
 ## Sistem hata ayıklama
 
